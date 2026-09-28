@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }}
+    runs-on: windows-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12']
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: |
+            apps/mosh-core/pyproject.toml
+            apps/mosh-core/requirements-identity.txt
+
+      - name: Install MOSH and identity verifier
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ./apps/mosh-core
+          python -m pip install -r ./apps/mosh-core/requirements-identity.txt
+
+      - name: Run tests
+        shell: pwsh
+        run: python -m unittest discover -s ./apps/mosh-core/tests -p 'test_*.py'
