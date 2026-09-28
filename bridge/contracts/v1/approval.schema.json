@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mosh.local/contracts/v1/approval.schema.json",
+  "title": "MOSH Approval",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["approval_id", "task_id", "scope", "requested_by", "decision", "decided_by", "reason", "created_at", "decided_at"],
+  "properties": {
+    "approval_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "scope": {"type": "string", "enum": ["execute"]},
+    "requested_by": {"type": "string", "minLength": 1},
+    "decision": {"type": "string", "enum": ["pending", "approved", "rejected"]},
+    "decided_by": {"type": ["string", "null"]},
+    "reason": {"type": ["string", "null"]},
+    "created_at": {"type": ["string", "null"], "format": "date-time"},
+    "decided_at": {"type": ["string", "null"], "format": "date-time"}
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mosh.local/contracts/v1/cleanup-plan.schema.json",
+  "title": "MOSH Cleanup Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["plan_id", "task_id", "execution_id", "source_path", "trash_path", "artifact_sha256", "plan_digest", "status", "created_at", "trashed_at", "restored_at", "retain_until"],
+  "properties": {
+    "plan_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "execution_id": {"type": "string", "minLength": 1},
+    "source_path": {"type": "string", "minLength": 1},
+    "trash_path": {"type": "string", "minLength": 1},
+    "artifact_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "plan_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "status": {"type": "string", "enum": ["planned", "trashed", "restored"]},
+    "created_at": {"type": ["string", "null"], "format": "date-time"},
+    "trashed_at": {"type": ["string", "null"], "format": "date-time"},
+    "restored_at": {"type": ["string", "null"], "format": "date-time"},
+    "retain_until": {"type": ["string", "null"], "format": "date-time"}
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mosh.local/contracts/v1/run.schema.json",
+  "title": "MOSH Task Run",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["run_id", "task_id", "attempt", "account_id", "status"],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "attempt": {"type": "integer", "minimum": 1},
+    "account_id": {"type": "string", "minLength": 1},
+    "status": {"type": "string", "enum": ["queued", "claimed", "running", "completed", "failed", "abandoned", "cancelled"]},
+    "lease_owner": {"type": ["string", "null"]},
+    "lease_expires_at": {"type": ["string", "null"], "format": "date-time"},
+    "result": {"type": ["string", "null"]},
+    "error": {"type": ["string", "null"]},
+    "completion_key": {"type": ["string", "null"]},
+    "adapter_name": {"type": ["string", "null"]},
+    "command_argv_json": {"type": ["string", "null"]},
+    "command_env_keys_json": {"type": ["string", "null"]},
+    "command_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$", "description": "Digest of the canonical redacted command evidence, not the raw execution specification."},
+    "command_recorded_at": {"type": ["string", "null"], "format": "date-time"},
+    "created_at": {"type": ["string", "null"], "format": "date-time"},
+    "updated_at": {"type": ["string", "null"], "format": "date-time"}
+  }
+}

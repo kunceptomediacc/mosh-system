@@ -1,0 +1,33 @@
+# Secrets and local identity state
+.env
+.env.*
+!.env.example
+.local/
+.git-init-backup/
+**/auth.json
+**/*token*.json
+**/*credential*.json
+**/client_secret*.json
+*.pem
+*.key
+
+# Dependencies and generated output
+node_modules/
+.pnpm-store/
+.venv/
+venv/
+__pycache__/
+*.egg-info/
+dist/
+build/
+coverage/
+logs/
+artifacts/
+data/
+docs/handoff/
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

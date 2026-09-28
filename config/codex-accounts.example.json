@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "defaultAccount": "personal",
+  "accounts": [
+    {
+      "alias": "personal",
+      "label": "Personal Codex",
+      "home": ".local/codex-accounts/personal"
+    },
+    {
+      "alias": "work",
+      "label": "Work Codex",
+      "home": ".local/codex-accounts/work"
+    }
+  ]
+}

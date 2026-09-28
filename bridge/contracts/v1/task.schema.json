@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mosh.local/contracts/v1/task.schema.json",
+  "title": "MOSH Task Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["task_id", "project_id", "from", "to", "objective", "inputs", "acceptance", "constraints", "risk", "approval_required", "status", "cancellation_requested"],
+  "properties": {
+    "task_id": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "from": {"type": "string", "minLength": 1},
+    "to": {"type": "string", "minLength": 1},
+    "provider": {"type": ["string", "null"]},
+    "account_id": {"type": ["string", "null"]},
+    "objective": {"type": "string", "minLength": 1},
+    "inputs": {"type": "array"},
+    "acceptance": {"type": "array", "items": {"type": "string"}},
+    "constraints": {"type": "array", "items": {"type": "string"}},
+    "risk": {"type": "string", "enum": ["low", "medium", "high", "critical"]},
+    "approval_required": {"type": "boolean"},
+    "status": {"type": "string", "enum": ["draft", "queued", "claimed", "running", "review", "completed", "blocked", "failed", "cancelled", "rejected"]},
+    "cancellation_requested": {"type": "boolean"},
+    "cancellation_reason": {"type": ["string", "null"]},
+    "created_at": {"type": ["string", "null"], "format": "date-time"},
+    "updated_at": {"type": ["string", "null"], "format": "date-time"},
+    "version": {"type": "integer", "minimum": 1}
+  }
+}

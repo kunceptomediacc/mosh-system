@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mosh.local/contracts/v1/account.schema.json",
+  "title": "MOSH Account",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["account_id", "provider", "alias", "credential_ref", "status"],
+  "properties": {
+    "account_id": {"type": "string", "minLength": 1},
+    "provider": {"type": "string", "minLength": 1},
+    "alias": {"type": "string", "pattern": "^[a-z][a-z0-9-]{0,31}$"},
+    "credential_ref": {"type": "string", "minLength": 1},
+    "status": {"type": "string", "enum": ["unknown", "ready", "unavailable", "disabled"]},
+    "metadata": {"type": "object", "additionalProperties": true},
+    "last_verified_at": {"type": ["string", "null"], "format": "date-time"}
+  }
+}

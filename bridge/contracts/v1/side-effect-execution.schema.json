@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mosh.local/contracts/v1/side-effect-execution.schema.json",
+  "title": "MOSH Side Effect Execution",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["execution_id", "request_id", "idempotency_key", "status", "artifact_path", "artifact_sha256", "error", "prepared_at", "completed_at", "failed_at"],
+  "properties": {
+    "execution_id": {"type": "string", "minLength": 1},
+    "request_id": {"type": "string", "minLength": 1},
+    "idempotency_key": {"type": "string", "minLength": 1},
+    "status": {"type": "string", "enum": ["prepared", "completed", "failed"]},
+    "artifact_path": {"type": "string", "minLength": 1},
+    "artifact_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "error": {"type": ["string", "null"]},
+    "prepared_at": {"type": ["string", "null"], "format": "date-time"},
+    "completed_at": {"type": ["string", "null"], "format": "date-time"},
+    "failed_at": {"type": ["string", "null"], "format": "date-time"}
+  }
+}

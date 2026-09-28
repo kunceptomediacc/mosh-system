@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mosh.local/contracts/v1/event.schema.json",
+  "title": "MOSH Task Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id", "task_id", "event_type", "from_status", "to_status", "payload", "created_at"],
+  "properties": {
+    "event_id": {"type": "integer", "minimum": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "event_type": {"type": "string", "minLength": 1},
+    "from_status": {"type": ["string", "null"]},
+    "to_status": {"type": ["string", "null"]},
+    "payload": {"type": "object"},
+    "created_at": {"type": "integer", "minimum": 0}
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mosh.local/contracts/v1/adapter.schema.json",
+  "title": "MOSH Adapter Capabilities",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["adapter", "healthy", "operations", "details"],
+  "properties": {
+    "adapter": {"type": "string", "minLength": 1},
+    "healthy": {"type": "boolean"},
+    "operations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["health", "capabilities", "submit", "status", "stream", "cancel", "collect_result"],
+      "properties": {
+        "health": {"type": "boolean"},
+        "capabilities": {"type": "boolean"},
+        "submit": {"type": "boolean"},
+        "status": {"type": "boolean"},
+        "stream": {"type": "boolean"},
+        "cancel": {"type": "boolean"},
+        "collect_result": {"type": "boolean"}
+      }
+    },
+    "details": {"type": "object", "additionalProperties": true}
+  }
+}

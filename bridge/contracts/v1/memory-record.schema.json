@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mosh.local/contracts/v1/memory-record.schema.json",
+  "title": "MOSH Memory Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["memory_id", "scope", "classification", "status", "summary", "content_sha256", "source", "created_at"],
+  "properties": {
+    "memory_id": {"type": "string", "pattern": "^MEM-[A-Z0-9-]{8,80}$"},
+    "scope": {"type": "string", "enum": ["task", "project", "mosh"]},
+    "scope_id": {"type": ["string", "null"], "maxLength": 200},
+    "classification": {"type": "string", "enum": ["internal", "confidential", "restricted"]},
+    "status": {"type": "string", "enum": ["candidate", "validated", "approved", "rejected", "expired"]},
+    "summary": {"type": "string", "minLength": 1, "maxLength": 2000},
+    "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "reference_id"],
+      "properties": {
+        "kind": {"type": "string", "enum": ["task", "event", "owner", "approved_import"]},
+        "reference_id": {"type": "string", "minLength": 1, "maxLength": 200}
+      }
+    },
+    "validation": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["method", "evidence_ids", "validated_at"],
+      "properties": {
+        "method": {"type": "string", "enum": ["owner_review", "test", "cross_source"]},
+        "evidence_ids": {"type": "array", "maxItems": 20, "items": {"type": "string", "maxLength": 200}, "uniqueItems": true},
+        "validated_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "approval": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["approval_id", "approved_by", "approved_at"],
+      "properties": {
+        "approval_id": {"type": "string", "minLength": 1, "maxLength": 200},
+        "approved_by": {"type": "string", "minLength": 1, "maxLength": 200},
+        "approved_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "embedding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": {"type": "string", "enum": ["not_requested", "pending", "ready", "failed"]},
+        "model_id": {"type": ["string", "null"], "maxLength": 200},
+        "vector_ref": {"type": ["string", "null"], "maxLength": 300}
+      }
+    },
+    "created_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": ["string", "null"], "format": "date-time"}
+  }
+}

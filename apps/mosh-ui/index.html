@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0b0c">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <meta name="color-scheme" content="dark">
+  <title>MOSH — The Moshpit</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="MOSH dashboard">
+      <span class="brand-mark">M</span>
+      <span><strong>MOSH</strong><small>THE MOSHPIT</small></span>
+    </a>
+    <div class="system-state" role="status" aria-live="polite"><span class="pulse" id="health-dot" aria-hidden="true"></span><span id="health-label">Locked</span></div>
+    <div class="system-state" id="signed-in-identity" hidden></div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">LOCAL CONTROL SURFACE / READ ONLY</p>
+        <h1>Everything moving.<br><em>Nothing lost.</em></h1>
+        <p class="lede">A live view of durable work, agent activity, approvals, and the audit trail beneath it.</p>
+      </div>
+      <form id="auth-form" class="auth-panel">
+        <label for="token">Session bearer token</label>
+        <div class="token-row">
+          <input id="token" name="token" type="password" autocomplete="off" minlength="16" required placeholder="Paste local token">
+          <button type="submit">Unlock</button>
+        </div>
+        <p id="auth-message" class="fine-print" role="status" aria-live="polite">Stored for this browser tab only. Never written to disk by the dashboard.</p>
+        <p class="fine-print"><a href="http://127.0.0.1:1455/">Sign in with Google</a></p>
+        <button id="logout" type="button" hidden>Sign out</button>
+      </form>
+    </section>
+
+    <section id="dashboard" class="dashboard" hidden tabindex="-1" aria-label="MOSH operational dashboard" aria-live="polite">
+      <section class="panel throw-panel" aria-labelledby="throw-title">
+        <div class="panel-head">
+          <div><p class="eyebrow">THROW IT IN</p><h2 id="throw-title">Queue work safely</h2></div>
+          <span class="gate-label">OWNER APPROVAL REQUIRED</span>
+        </div>
+        <form id="throw-form" class="throw-form">
+          <label class="objective-field" for="throw-objective">What should MOSH work on?</label>
+          <textarea id="throw-objective" name="objective" maxlength="4000" required placeholder="Describe the outcome, constraints, and evidence you want."></textarea>
+          <div class="throw-options">
+            <label>Account<select id="throw-account" name="account_id" required></select></label>
+            <label>Risk<select id="throw-risk" name="risk"><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select></label>
+            <label>Submission token<input id="throw-token" name="write_token" type="password" autocomplete="off" minlength="16" required placeholder="Paste write token"></label>
+          </div>
+          <div class="throw-actions">
+            <p id="throw-message" class="fine-print" role="status" aria-live="polite">Creates a queued run and a pending owner approval. It never starts a worker automatically.</p>
+            <button type="submit">Queue for approval</button>
+          </div>
+        </form>
+      </section>
+
+      <div id="summary" class="metric-grid"></div>
+
+      <section class="panel status-panel" aria-labelledby="status-title">
+        <div class="panel-head"><div><p class="eyebrow">SYSTEM STATUS</p><h2 id="status-title">Operational readiness</h2></div><span id="system-health" class="count"></span></div>
+        <div id="system-status" class="status-layout"></div>
+      </section>
+
+      <section class="panel projects-panel" aria-labelledby="projects-title">
+        <div class="panel-head"><div><p class="eyebrow">PROJECTS</p><h2 id="projects-title">Workspaces in motion</h2></div><span id="project-count" class="count"></span></div>
+        <div id="projects" class="project-list"></div>
+      </section>
+
+      <section class="panel workspace-panel" aria-labelledby="workspace-title">
+        <div class="panel-head"><div><p class="eyebrow">FILES / GIT</p><h2 id="workspace-title">Workspace health</h2></div><span id="git-state" class="count"></span></div>
+        <div id="workspace" class="workspace-grid"></div>
+      </section>
+
+      <section class="panel integrations-panel" aria-labelledby="integrations-title">
+        <div class="panel-head"><div><p class="eyebrow">PLUGINS / TOOLS</p><h2 id="integrations-title">Capability inventory</h2></div><span id="integration-agents" class="count"></span></div>
+        <div id="integrations" class="integration-layout"></div>
+      </section>
+
+      <section class="panel memory-panel" aria-labelledby="memory-title">
+        <div class="panel-head"><div><p class="eyebrow">MEMORY</p><h2 id="memory-title">Durable operational memory</h2></div><span id="memory-health" class="count"></span></div>
+        <div id="memory" class="memory-grid"></div>
+      </section>
+
+      <section class="panel learning-panel" aria-labelledby="learning-title">
+        <div class="panel-head"><div><p class="eyebrow">PHASE 4 GOVERNANCE</p><h2 id="learning-title">Memory & skill promotion</h2></div><span id="learning-embedding" class="count"></span></div>
+        <div id="learning-status" class="learning-layout"></div>
+      </section>
+
+      <section class="panel governance-panel" aria-labelledby="governance-title">
+        <div class="panel-head"><div><p class="eyebrow">PHASE 6 GOVERNANCE</p><h2 id="governance-title">Project controls</h2></div><span id="governance-claim" class="count"></span></div>
+        <div id="governance-status" class="governance-layout"></div>
+      </section>
+
+      <section class="panel governance-panel" aria-labelledby="workflow-title">
+        <div class="panel-head"><div><p class="eyebrow">PHASE 7 PATTERNS</p><h2 id="workflow-title">Workflow registry</h2></div><span id="workflow-execution" class="count"></span></div>
+        <div id="workflow-status" class="governance-layout"></div>
+      </section>
+
+      <section class="panel governance-panel" aria-labelledby="video-title">
+        <div class="panel-head"><div><p class="eyebrow">PHASE 9 FACTORY</p><h2 id="video-title">Video production</h2></div><span id="video-publishing" class="count"></span></div>
+        <div id="video-status" class="governance-layout"></div>
+      </section>
+
+      <section class="panel governance-panel" aria-labelledby="identity-title">
+        <div class="panel-head"><div><p class="eyebrow">IDENTITY FOUNDATION</p><h2 id="identity-title">Providers & roles</h2></div><span id="identity-local" class="count"></span></div>
+        <div id="identity-status" class="governance-layout"></div>
+      </section>
+
+      <section class="panel logs-panel" aria-labelledby="logs-title">
+        <div class="panel-head"><div><p class="eyebrow">LOGS</p><h2 id="logs-title">Durable audit signals</h2></div><span id="logs-health" class="count"></span></div>
+        <div id="logs" class="logs-layout"></div>
+      </section>
+
+      <div class="content-grid">
+        <section class="panel tasks-panel">
+          <div class="panel-head">
+            <div><p class="eyebrow">QUEUE</p><h2>Durable tasks</h2></div>
+            <div class="pager" aria-label="Task pages"><button id="tasks-prev" class="ghost" type="button" aria-label="Previous task page">←</button><span id="tasks-page" aria-live="polite">1</span><button id="tasks-next" class="ghost" type="button" aria-label="Next task page">→</button></div>
+          </div>
+          <div id="tasks" class="task-list"></div>
+        </section>
+
+        <aside class="panel detail-panel">
+          <div class="panel-head">
+            <div><p class="eyebrow">INSPECTOR</p><h2 id="detail-title">Select a task</h2></div>
+          </div>
+          <div id="task-detail" class="detail-empty">Choose a task to inspect its routing, runs, approvals, and event history.</div>
+          <div id="events" class="timeline"></div>
+          <button id="events-more" class="load-more" type="button" hidden>Load earlier history</button>
+        </aside>
+      </div>
+
+      <div class="operations-grid">
+        <section class="panel">
+          <div class="panel-head"><div><p class="eyebrow">ROSTER</p><h2>Agents & accounts</h2></div></div>
+          <div id="roster" class="roster-list"></div>
+        </section>
+        <section class="panel">
+          <div class="panel-head"><div><p class="eyebrow">GATES</p><h2>Approval queue</h2></div><span id="approval-count" class="count"></span></div>
+          <div id="approvals" class="queue-list"></div>
+        </section>
+        <section class="panel">
+          <div class="panel-head"><div><p class="eyebrow">SIDE EFFECTS</p><h2>Action requests</h2></div><span id="effect-count" class="count"></span></div>
+          <div id="side-effects" class="queue-list"></div>
+        </section>
+      </div>
+
+      <section class="panel cleanup-panel">
+        <div class="panel-head"><div><p class="eyebrow">RECOVERY</p><h2>Cleanup plans</h2></div></div>
+        <div id="cleanup" class="cleanup-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <template id="empty-template"><div class="empty-state">No records yet.</div></template>
+</body>
+</html>

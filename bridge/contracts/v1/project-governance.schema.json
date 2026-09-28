@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mosh.local/contracts/v1/project-governance.schema.json",
+  "title": "MOSH Project Governance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["project_id", "profile", "classification", "status", "compliance_claims_prohibited", "approved_by", "created_at", "updated_at"],
+  "properties": {
+    "project_id": {"type": "string", "minLength": 3, "maxLength": 100},
+    "profile": {"type": "string", "enum": ["experiment", "business"]},
+    "classification": {"type": "string", "enum": ["internal", "confidential", "restricted"]},
+    "status": {"type": "string", "enum": ["draft", "active", "blocked"]},
+    "compliance_claims_prohibited": {"const": 1},
+    "approved_by": {"const": "owner"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  }
+}

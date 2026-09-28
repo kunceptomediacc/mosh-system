@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mosh.local/contracts/v1/github-read-expansion-request.schema.json",
+  "title": "MOSH GitHub Read Expansion Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "request_version",
+    "repository_full_name",
+    "agent_id",
+    "operation",
+    "purpose",
+    "allowlist_mode",
+    "expires_at",
+    "max_connector_calls",
+    "persist_response_content",
+    "allow_github_writes"
+  ],
+  "properties": {
+    "request_version": {"const": "1"},
+    "repository_full_name": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]{1,100}/[A-Za-z0-9_.-]{1,100}$"
+    },
+    "agent_id": {"const": "cline"},
+    "operation": {"const": "repository.metadata"},
+    "purpose": {"type": "string", "minLength": 1, "maxLength": 500},
+    "allowlist_mode": {"const": "expiring"},
+    "expires_at": {"type": "string", "format": "date-time"},
+    "max_connector_calls": {"const": 1},
+    "persist_response_content": {"const": false},
+    "allow_github_writes": {"const": false}
+  }
+}

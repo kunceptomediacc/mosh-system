@@ -1,0 +1,12 @@
+{
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "transitionFrames": 15,
+  "scenes": [
+    { "title": "Throw it in", "durationInFrames": 90 },
+    { "title": "Route with evidence", "durationInFrames": 105 },
+    { "title": "Stay in control", "durationInFrames": 90 }
+  ],
+  "totalFrames": 255
+}

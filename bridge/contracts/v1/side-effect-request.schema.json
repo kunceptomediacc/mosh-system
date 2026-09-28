@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mosh.local/contracts/v1/side-effect-request.schema.json",
+  "title": "MOSH Side Effect Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["request_id", "task_id", "action", "target", "parameters", "risk", "request_digest", "status", "requested_by", "decided_by", "reason", "expires_at", "created_at", "decided_at", "consumed_at"],
+  "properties": {
+    "request_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "action": {"type": "string", "minLength": 1},
+    "target": {"type": "string", "minLength": 1},
+    "parameters": {"type": "object"},
+    "risk": {"type": "string", "enum": ["low", "medium", "high", "critical"]},
+    "request_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "status": {"type": "string", "enum": ["pending", "approved", "rejected", "consumed"]},
+    "requested_by": {"type": "string", "minLength": 1},
+    "decided_by": {"type": ["string", "null"]},
+    "reason": {"type": ["string", "null"]},
+    "expires_at": {"type": ["string", "null"], "format": "date-time"},
+    "created_at": {"type": ["string", "null"], "format": "date-time"},
+    "decided_at": {"type": ["string", "null"], "format": "date-time"},
+    "consumed_at": {"type": ["string", "null"], "format": "date-time"}
+  }
+}

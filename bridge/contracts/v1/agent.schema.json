@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mosh.local/contracts/v1/agent.schema.json",
+  "title": "MOSH Agent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["agent_id", "name", "adapter", "status", "capabilities"],
+  "properties": {
+    "agent_id": {"type": "string", "minLength": 1},
+    "name": {"type": "string", "minLength": 1},
+    "adapter": {"type": "string", "enum": ["codex", "cline", "hermes", "ollama", "custom"]},
+    "status": {"type": "string", "enum": ["unknown", "ready", "degraded", "offline", "disabled"]},
+    "capabilities": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "metadata": {"type": "object", "additionalProperties": true}
+  }
+}

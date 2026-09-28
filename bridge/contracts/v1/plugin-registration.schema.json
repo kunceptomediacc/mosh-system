@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mosh.local/contracts/v1/plugin-registration.schema.json",
+  "title": "MOSH Plugin Registration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["plugin_id", "name", "provider", "status", "auth_type", "health_status", "capabilities", "requested_scopes", "granted_scopes", "allowed_agents", "approval_required_for_writes"],
+  "properties": {
+    "plugin_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"},
+    "name": {"type": "string", "minLength": 1, "maxLength": 100},
+    "provider": {"type": "string", "minLength": 1, "maxLength": 100},
+    "status": {"type": "string", "enum": ["unconfigured", "disconnected", "connected", "degraded", "disabled"]},
+    "auth_type": {"type": "string", "enum": ["oauth", "github_app", "token", "none"]},
+    "health_status": {"type": "string", "enum": ["unknown", "healthy", "degraded", "unavailable"]},
+    "capabilities": {"type": "array", "items": {"type": "string"}, "uniqueItems": true, "maxItems": 50},
+    "requested_scopes": {"type": "array", "items": {"type": "string"}, "uniqueItems": true, "maxItems": 50},
+    "granted_scopes": {"type": "array", "items": {"type": "string"}, "uniqueItems": true, "maxItems": 50},
+    "allowed_agents": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "approval_required_for_writes": {"const": true},
+    "last_checked_at": {"type": ["string", "null"], "format": "date-time"}
+  }
+}

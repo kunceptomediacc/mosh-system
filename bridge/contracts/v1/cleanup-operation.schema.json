@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mosh.local/contracts/v1/cleanup-operation.schema.json",
+  "title": "MOSH Cleanup Operation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["operation_id", "plan_id", "request_id", "action", "status", "error", "prepared_at", "completed_at", "failed_at"],
+  "properties": {
+    "operation_id": {"type": "string", "minLength": 1},
+    "plan_id": {"type": "string", "minLength": 1},
+    "request_id": {"type": "string", "minLength": 1},
+    "action": {"type": "string", "enum": ["trash", "restore"]},
+    "status": {"type": "string", "enum": ["prepared", "completed", "failed"]},
+    "error": {"type": ["string", "null"]},
+    "prepared_at": {"type": ["string", "null"], "format": "date-time"},
+    "completed_at": {"type": ["string", "null"], "format": "date-time"},
+    "failed_at": {"type": ["string", "null"], "format": "date-time"}
+  }
+}

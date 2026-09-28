@@ -1,0 +1,13 @@
+{
+  "name": "MOSH — The Moshpit",
+  "short_name": "MOSH",
+  "description": "Local-first durable AI workstation control surface.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b0b0c",
+  "theme_color": "#0b0b0c",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
