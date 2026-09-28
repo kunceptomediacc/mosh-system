@@ -2,7 +2,9 @@
 
 MOSH is a local-first control surface for durable work across agents, tools, accounts, and projects.
 
-This repository currently contains the **Phase 0 foundation**: safe discovery rules, evidence reports, and a two-account Codex launcher. It does not yet contain the durable agent bridge or production services.
+The original Phase 0–9 local scope is implemented: the repository includes a Python core, SQLite-backed task and audit state, approval-gated side effects, a loopback-only API, an installable dashboard, identity sessions, service management, governed integrations, and a local Video Factory experiment.
+
+Current checkpoint: **93% overall**, with the safe local scope complete and 140 applicable tests passing. The remaining work requires owner-selected production infrastructure, deployment configuration, or separately approved external publishing. See [the current completion checkpoint](docs/operations/PROJECT_COMPLETION_CHECKPOINT_2026-09-28.md).
 
 ## Non-negotiable safety boundary
 
@@ -32,9 +34,16 @@ Check every configured account without exposing credentials:
 
 Account state is stored under the ignored `.local\codex-accounts\` directory. Credentials are never committed or merged between accounts.
 
-## Phase 0 reports
+## Repository map
 
-See [docs/handoff/PHASE_0_REPORT.md](docs/handoff/PHASE_0_REPORT.md).
+- `apps/mosh-core/` — durable core, API, worker, adapters, and tests
+- `apps/mosh-ui/` — local dashboard and browser QA assets
+- `bridge/contracts/v1/` — versioned JSON contracts
+- `docs/architecture/` — architecture decisions
+- `docs/operations/` — implementation and acceptance evidence
+- `docs/security/` — dependency and security review notes
+- `projects/experiments/video-factory/` — local media-production experiment
+- `scripts/` — setup, discovery, health, QA, and service-management helpers
 
 ## Phase 1 core
 
