@@ -7,6 +7,10 @@ if ("serviceWorker" in navigator && location.protocol !== "file:") {
 const state = { token: sessionStorage.getItem("mosh.token") || "", taskOffset: 0, taskLimit: 8, total: 0, selected: null, eventCursor: 0 };
 const $ = (selector) => document.querySelector(selector);
 
+if (["127.0.0.1", "localhost"].includes(location.hostname)) {
+  $("#google-sign-in").href = "http://127.0.0.1:1455/";
+}
+
 async function api(path, options = {}) {
   const headers = { ...(state.token ? { Authorization: `Bearer ${state.token}` } : {}), ...(options.headers || {}) };
   const response = await fetch(path, { ...options, headers, cache: "no-store" });

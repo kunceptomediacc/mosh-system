@@ -4,7 +4,7 @@ MOSH is a local-first control surface for durable work across agents, tools, acc
 
 The original Phase 0–9 local scope is implemented: the repository includes a Python core, SQLite-backed task and audit state, approval-gated side effects, a loopback-only API, an installable dashboard, identity sessions, service management, governed integrations, and a local Video Factory experiment.
 
-Current checkpoint: **94% overall**, with the safe local scope complete and 140 applicable tests passing. The remaining work requires owner-selected production infrastructure, deployment configuration, or separately approved external publishing. See [the current completion checkpoint](docs/operations/PROJECT_COMPLETION_CHECKPOINT_2026-09-29.md).
+Current checkpoint: **94% overall**, with the safe local scope complete and 148 applicable tests passing. The remaining work requires production deployment acceptance or separately approved external publishing. See [the current completion checkpoint](docs/operations/PROJECT_COMPLETION_CHECKPOINT_2026-09-29.md).
 
 ## Non-negotiable safety boundary
 
@@ -48,6 +48,18 @@ Account state is stored under the ignored `.local\codex-accounts\` directory. Cr
 - `docs/security/` — dependency and security review notes
 - `projects/experiments/video-factory/` — local media-production experiment
 - `scripts/` — setup, discovery, health, QA, and service-management helpers
+
+## Prepared Render deployment
+
+`render.yaml` and the pinned Python container prepare a single-instance Render web service with a 1 GB persistent
+disk for SQLite. The production entry point serves the dashboard, same-origin Google sign-in, authenticated API,
+and a minimal `/healthz` endpoint under Render's generated HTTPS origin. It validates all production settings at
+startup, uses secure cookies and strict response headers, initializes only the mounted data directory as root,
+then runs Python as UID/GID 10001.
+
+This configuration is prepared but not deployed. Render compute and persistent storage are paid resources, and
+deployment still requires explicit approval plus operator-supplied secrets. See the
+[Render deployment preparation gate](docs/operations/RENDER_DEPLOYMENT_PREPARATION_2026-09-29.md).
 
 ## Phase 1 core
 

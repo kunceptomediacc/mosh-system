@@ -1,0 +1,17 @@
+.git
+.github
+.local
+.venv
+artifacts
+data
+docs
+node_modules
+projects
+scripts
+**/__pycache__
+**/*.pyc
+**/*token*
+**/*credential*
+**/client_secret*.json
+.env
+.env.*

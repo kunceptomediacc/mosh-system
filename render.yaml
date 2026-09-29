@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: mosh-system
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /healthz
+    numInstances: 1
+    envVars:
+      - key: MOSH_DATABASE
+        value: /var/data/mosh.db
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: MOSH_API_TOKEN
+        sync: false
+      - key: MOSH_WRITE_TOKEN
+        sync: false
+    disk:
+      name: mosh-data
+      mountPath: /var/data
+      sizeGB: 1
