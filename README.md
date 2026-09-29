@@ -10,6 +10,10 @@ Current checkpoint: **93% overall**, with the safe local scope complete and 140 
 
 `D:\balot\thor\` is excluded at scanner level. MOSH discovery must never enumerate, inspect, index, or copy it.
 
+## License
+
+MOSH is proprietary software distributed under the [MOSH License](LICENSE). No permission to use, copy, modify, or redistribute the software is granted without prior written permission.
+
 ## Two Codex accounts
 
 MOSH never assumes one Codex identity. Initialize two isolated account homes, then sign in to each explicitly:
