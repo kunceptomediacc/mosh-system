@@ -1,7 +1,7 @@
 # GitHub read expansion gate
 
 Date: 2026-09-24  
-Status: **PREPARED — NOT AUTHORIZED OR EXECUTED**
+Status: **COMPLETED — BOUNDED READ RECEIPT RECORDED**
 
 ## Proposed bounded capability
 
@@ -75,3 +75,21 @@ Do not perform the connector read if any of these are true:
 - Every GitHub write operation
 
 Repository grants now support bounded expiry and reasoned owner revocation locally. No grant was created, renewed, or revoked while preparing this gate.
+
+## Execution result
+
+On 2026-09-29, the owner supplied and confirmed one contract-valid request with an exact repository, bounded
+purpose, timezone-qualified expiry within 30 days, Cline as the agent, and a one-call limit. A fresh
+credential-safe health check verified the required read capability before execution.
+
+- Exactly one `repository.metadata` connector call completed.
+- The expiring local grant was normalized to UTC.
+- Audit event `3` has one immutable completed outcome.
+- Only the response SHA-256, byte count, line count, and completion timestamp were persisted.
+- Raw response content, repository identity, account identity, credentials, and connector output were not
+  persisted in this evidence document or the outcome receipt.
+- No file, issue, pull-request, branch, commit, settings, identity, permission, or write operation was performed.
+- Post-operation SQLite integrity check returned `ok`.
+
+Aggregate plugin activity after completion: two active repository grants, three authorized reads, two completed
+outcomes, zero failed outcomes, and one pre-existing legacy pending event.

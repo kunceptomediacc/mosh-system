@@ -4,7 +4,7 @@ MOSH is a local-first control surface for durable work across agents, tools, acc
 
 The original Phase 0–9 local scope is implemented: the repository includes a Python core, SQLite-backed task and audit state, approval-gated side effects, a loopback-only API, an installable dashboard, identity sessions, service management, governed integrations, and a local Video Factory experiment.
 
-Current checkpoint: **93% overall**, with the safe local scope complete and 140 applicable tests passing. The remaining work requires owner-selected production infrastructure, deployment configuration, or separately approved external publishing. See [the current completion checkpoint](docs/operations/PROJECT_COMPLETION_CHECKPOINT_2026-09-28.md).
+Current checkpoint: **94% overall**, with the safe local scope complete and 140 applicable tests passing. The remaining work requires owner-selected production infrastructure, deployment configuration, or separately approved external publishing. See [the current completion checkpoint](docs/operations/PROJECT_COMPLETION_CHECKPOINT_2026-09-29.md).
 
 ## Non-negotiable safety boundary
 
